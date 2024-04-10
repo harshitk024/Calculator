@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 })
 
 
-const symbol = ["+","/","-","x","^"]
+const symbol = ["+","/","x","^","-"]
 
 function calculate(display){
     let result = display.textContent;
@@ -69,15 +69,11 @@ function calculate(display){
         }
     }
 
-    // if(result[0] ==  "-"){
-    //     result = result.replace("-","")
-    //     console.log(result)
+    let  nums;
 
-    // }
-    let nums;
     switch(i){
         case 0:
-             nums = result.split("+")
+            nums = result.split("+")
             if(nums[0] == "-"){
                 nums.splice(0,1)
                 nums[0] = "-" + nums[0]
@@ -96,16 +92,8 @@ function calculate(display){
             display.textContent = div.toFixed(2)
             break;
         case 2 :
-            nums = result.split("-")
-            if(nums[0] == "-"){
-                nums.splice(0,1)
-                nums[0] = "-" + nums[0]
-            }
-            let sub =  nums.reduce((total,value)=> parseFloat(total) - parseFloat(value))
-            display.textContent = sub
-            break;
-        case 3 :
-            nums = result.split("x")
+
+        nums = result.split("x")
             console.log(nums)
             if(nums[0] == "-"){
                 nums.splice(0,1)
@@ -115,15 +103,33 @@ function calculate(display){
             let mul =  nums.reduce((total,value)=> parseFloat(total) * parseFloat(value))
             display.textContent = mul
             break;
+          
+        case 3 :
+
+        nums = result.split("^")
+        if(nums[0] == "-"){
+            nums.splice(0,1)
+            nums[0] = "-" + nums[0]
+        }
+        let pow =  nums.reduce((total,value)=> parseFloat(total)**parseFloat(value))
+        display.textContent = pow.toFixed(2)
+        break;
+
+    
         case 4 :
-            nums = result.split("^")
-            if(nums[0] == "-"){
-                nums.splice(0,1)
-                nums[0] = "-" + nums[0]
-            }
-            let pow =  nums.reduce((total,value)=> parseFloat(total)**parseFloat(value))
-            display.textContent = pow.toFixed(2)
-            break;
+
+        console.log(result)
+        nums = result.split("-")
+    
+        if(nums[0] == ""){
+            nums.splice(0,1)
+            nums[0] = "-" + nums[0]
+        }
+        console.log(nums)
+        let sub =  nums.reduce((total,value)=> parseFloat(total) - parseFloat(value))
+        display.textContent = sub
+        break;
+          
     
 
     }
@@ -186,7 +192,7 @@ function addFloat(){
     if( result == "" ){
         display.textContent = "0."
     }
-    else if(result.indexOf(".") == -1){
+    else{
         display.textContent = display.textContent + "."
     }
 }
